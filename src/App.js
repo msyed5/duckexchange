@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Browse from './pages/Browse';
 import SignInScreen from './pages/SignInScreen';
+import ItemPost from './pages/ItemPost';
 
 function App() {
     const [signedIn,setSignedIn] = useState(false);
@@ -32,10 +33,10 @@ function App() {
 
     if(signedIn === true){
        return (
-
+//I changed the element below to itempost so i can see how the post tab looks
   <BrowserRouter>
            <Routes>
-             <Route path="/" element={<Browse />} />
+             <Route path="/" element={<ItemPost />} />
            </Routes>
     </BrowserRouter>
        )
