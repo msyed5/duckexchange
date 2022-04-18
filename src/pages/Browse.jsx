@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { authentication, db } from "../backend/firebase-config";
 
 function Browse({ signedIn }) {
@@ -9,6 +11,7 @@ function Browse({ signedIn }) {
   const deletePost = async (id) => {
     const postDoc = doc(db, "posts", id);
     await deleteDoc(postDoc);
+    window.location.reload()
   };
 
   useEffect(() => {
@@ -44,8 +47,11 @@ function Browse({ signedIn }) {
               }
               </div>
             </div>
-            <div className="postTextContainer"> {post.postText} </div>
-            <h3>Seller: {post.author.name}</h3>
+            <div className="postTextContainer"> Category: {post.category} </div>
+            <div className="postTextContainer"> Price: {post.price} </div>
+            <div className="postTextContainer"> Condition: {post.condition} </div>
+            <div className="postTextContainer"> Description: {post.postText} </div>
+            <p>Sold By: {post.author.name}</p>
           </div>
         );
       })}

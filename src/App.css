@@ -2,11 +2,8 @@
   text-align: center;
 }
 body {
-  padding: 0%;
-  margin: 0%;
   font-family: 'Montserrat', sans-serif;
   background-color: #E8E8E8;
-
 }
 
 nav {
@@ -103,6 +100,7 @@ textarea {
 /* GOOGLE BUTTOn */
 .login-with-google-btn {
   cursor: pointer;
+  margin-top: 20px;
   transition: background-color 0.3s, box-shadow 0.3s;
   padding: 5px 16px 12px 42px;
   border: none;
@@ -140,9 +138,9 @@ textarea {
   width: 100%;
   min-height: calc(100vh - 80px);
   height: auto;
-  display: inline-flex;
-  flex-direction: row;
-  /* align-items: center; */
+  /* display: inline-flex; */
+  /* flex-direction: row; */
+  align-items: center;
   padding-top: 20px;
 }
 
@@ -155,6 +153,7 @@ textarea {
   margin: 20px;
   padding: 20px;
   border-radius: 15px;
+  flex-direction: row
 }
 
 .post .postHeader {
@@ -164,7 +163,7 @@ textarea {
 }
 
 .postHeader .title {
-  flex: 50%;
+  flex: 70%;
 }
 .postHeader .deletePost {
   flex: 20%;

@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 function CreatePost({ signedIn }) {
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [condition, setCondition] = useState("");
   const [postText, setPostText] = useState("");
 
   const postsCollectionRef = collection(db, "posts");
@@ -13,7 +16,10 @@ function CreatePost({ signedIn }) {
   const createPost = async () => {
     await addDoc(postsCollectionRef, {
       title,
+      price,
+      condition,
       postText,
+      category,
       author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid },
     });
     navigate("/addlisting");
@@ -28,26 +34,53 @@ function CreatePost({ signedIn }) {
   return (
     <div className="createPostPage">
       <div className="cpContainer">
-        <h1>Create A Post</h1>
+        <h1>Create New Listing</h1>
         <div className="inputGp">
-          <label> Title:</label>
+          <label> Item:</label>
           <input
-            placeholder="Title..."
+            placeholder="Item..."
             onChange={(event) => {
               setTitle(event.target.value);
             }}
           />
         </div>
         <div className="inputGp">
-          <label> Post:</label>
+          <label> Category:</label>
+          <input
+            placeholder="Will be a dropdown menu..."
+            onChange={(event) => {
+              setCategory(event.target.value);
+            }}
+          />
+        </div>
+        <div className="inputGp">
+          <label> Price:</label>
+          <input
+            placeholder="Price..."
+            onChange={(event) => {
+              setPrice(event.target.value);
+            }}
+          />
+        </div>
+        <div className="inputGp">
+          <label> Condition:</label>
+          <input
+            placeholder="Condition..."
+            onChange={(event) => {
+              setCondition(event.target.value);
+            }}
+          />
+        </div>
+        <div className="inputGp">
+          <label> Description:</label>
           <textarea
-            placeholder="Post..."
+            placeholder="Description..."
             onChange={(event) => {
               setPostText(event.target.value);
             }}
           />
         </div>
-        <button onClick={createPost}> Submit Post</button>
+        <button onClick={createPost}> Post Listing</button>
       </div>
     </div>
   );
