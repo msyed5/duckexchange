@@ -1,8 +1,9 @@
-const Browse = ()=>{
+import React from 'react'
 
-    return(
-        <h1>Duck Exchange</h1>
-    )
+function Browse() {
+  return (
+    <h1>Duck Exchange</h1>
+  )
 }
 
 export default Browse;

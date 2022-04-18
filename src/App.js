@@ -1,13 +1,11 @@
 import './App.css';
 import {useState} from 'react';
 import { authentication } from './backend/firebase-config';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-import Browse from './pages/Browse';
+import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import SignInScreen from './pages/SignInScreen';
+import Browse from './pages/Browse';
+import AddListing from './pages/AddListing';
+
 
 function App() {
     const [signedIn,setSignedIn] = useState(false);
@@ -32,22 +30,29 @@ function App() {
 
     if(signedIn === true){
        return (
-
-  <BrowserRouter>
+  <Router>
+    <nav>
+      <Link to="/"> Browse </Link>
+      <Link to="/addlisting"> Create New Listing </Link>
+    </nav>
            <Routes>
-             <Route path="/" element={<Browse />} />
+           <Route path="/" element={<Browse />} />
+            <Route path="/browse" element={<Browse />} />
+            <Route path="/addlisting" element={protectedRoute(<AddListing />)} />
            </Routes>
-    </BrowserRouter>
+    </Router>
        )
     };
 
+
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<SignInScreen />} />
-        <Route path="/Browse" element={protectedRoute(<Browse/>)} />
+        // <Route path="/browse" element={protectedRoute(<Browse/>)} />
+        // <Route path="/addlisting" element={protectedRoute(<AddListing />)} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
