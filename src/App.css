@@ -4,16 +4,18 @@
 body {
   padding: 0%;
   margin: 0%;
-  font-family: Montserrat, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #E8E8E8;
+
 }
 
 nav {
   margin: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
   background-color: #800000;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   color: white;
   text-decoration: none;
@@ -23,7 +25,7 @@ a {
   color: white;
   text-decoration: none;
   margin: 10px;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .createPostPage {

@@ -1,8 +1,9 @@
 import React from 'react'
 
+
 function AddListing() {
   return (
-    <div>Post Item</div>
+    <p>Post Item</p>
   )
 }
 
