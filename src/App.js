@@ -51,11 +51,11 @@ function App() {
           </>
         )}
       </nav>
-      
+
              <Routes>
              <Route path="/" element={<SignInScreen setSignedIn={setSignedIn}/>} />
-              <Route path="/browse" element={protectedRoute(<Browse />)} />
-              <Route path="/addlisting" element={protectedRoute(<AddListing />)} />
+              <Route path="/browse" element={protectedRoute(<Browse signedIn={signedIn} />)} />
+              <Route path="/addlisting" element={protectedRoute(<AddListing signedIn={signedIn}/>)} />
              </Routes>
       </Router>
   );

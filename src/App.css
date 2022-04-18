@@ -140,15 +140,15 @@ textarea {
   width: 100%;
   min-height: calc(100vh - 80px);
   height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: inline-flex;
+  flex-direction: row;
+  /* align-items: center; */
   padding-top: 20px;
 }
 
 .homePage .post {
   width: 600px;
-  height: auto;
+  height: 300px;
   max-height: 600px;
   background-color: rgb(250, 250, 250);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -167,7 +167,7 @@ textarea {
   flex: 50%;
 }
 .postHeader .deletePost {
-  flex: 50%;
+  flex: 20%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -188,4 +188,6 @@ textarea {
   width: 100%;
   overflow: hidden;
   overflow-y: auto;
+  flex-direction: row;
+
 }
