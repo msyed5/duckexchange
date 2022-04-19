@@ -80,7 +80,7 @@ function CreatePost({ signedIn }) {
             }}
           />
         </div>
-        <button onClick={createPost}> Post Listing</button>
+        <button className="btn btn-info" onClick={createPost}> Post Listing</button>
       </div>
     </div>
   );

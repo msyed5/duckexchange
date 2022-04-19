@@ -34,16 +34,16 @@ function Browse({ signedIn }) {
               </div>
               <div className="deletePost">
                 {signedIn && post.author.id === authentication.currentUser.uid
-                //   && (
-                //   <button
-                //     onClick={() => {
-                //       deletePost(post.id);
-                //     }}
-                //   >
-                //     {" "}
-                //     &#128465;
-                //   </button>
-                // )
+                  && (
+                  <button
+                    onClick={() => {
+                      deletePost(post.id);
+                    }}
+                  >
+                    {" "}
+                    &#128465;
+                  </button>
+                )
               }
               </div>
             </div>
