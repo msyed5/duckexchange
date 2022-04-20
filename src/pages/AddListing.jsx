@@ -60,10 +60,8 @@ function CreatePost({ signedIn }) {
         <div className="inputGp">
           <label> Category:</label>
           <Dropdown
-            onChange={(event) => {
-              setCategory(event.target.value);
-            }}
-            action="Post Listing"
+            onChange={handleSelect}
+            action={CreatePost}
           >
             <Option selected value="Choose a category"/>
             <Option value="Books"/>
@@ -78,6 +76,7 @@ function CreatePost({ signedIn }) {
               setCategory(event.target.value);
             }}
           />
+          
         </div>
         <div className="inputGp">
           <label> Price:</label>
