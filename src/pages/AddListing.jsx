@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, authentication } from "../backend/firebase-config";
 import { useNavigate } from "react-router-dom";
+import { Dropdown, Option } from "./Dropdown";
+import {
+  DropdownWrapper,
+  StyledSelect,
+  StyledOption,
+  StyledLabel,
+  StyledButton,
+} from "./styles.js";
 
 function CreatePost({ signedIn }) {
   const [title, setTitle] = useState("");
@@ -9,6 +17,7 @@ function CreatePost({ signedIn }) {
   const [price, setPrice] = useState("");
   const [condition, setCondition] = useState("");
   const [postText, setPostText] = useState("");
+
 
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
@@ -46,12 +55,18 @@ function CreatePost({ signedIn }) {
         </div>
         <div className="inputGp">
           <label> Category:</label>
-          <input
-            placeholder="Will be a dropdown menu..."
-            onChange={(event) => {
-              setCategory(event.target.value);
-            }}
-          />
+          <Dropdown
+            onChange={(event) => { //doesn't work
+            setCategory(event.target.value); //doesn't work
+          }}
+          >
+            <Option selected value="Choose a category"/>
+            <Option value="Books"/>
+            <Option value="Clothing"/>
+            <Option value="Electronics"/>
+            <Option value="Furniture"/>
+            <Option value="Sports Gear"/>
+          </Dropdown>
         </div>
         <div className="inputGp">
           <label> Price:</label>
