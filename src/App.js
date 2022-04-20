@@ -49,7 +49,7 @@ function App() {
             <Link to="/browse"> Browse </Link>
             <Link to="/addlisting"> Sell </Link>
             <Link to="/cart"> Cart </Link>
-            <button onClick={signUserOut}> Log Out</button>
+            <button className="btn btn-danger" onClick={signUserOut}> Log Out</button>
           </>
         )}
       </nav>
