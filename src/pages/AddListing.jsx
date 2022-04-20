@@ -18,6 +18,10 @@ function CreatePost({ signedIn }) {
   const [condition, setCondition] = useState("");
   const [postText, setPostText] = useState("");
 
+  const handleSelect = (event) => {
+    console.log(event.target.value);
+    setCategory(event.target.value);
+  }
 
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
@@ -56,9 +60,10 @@ function CreatePost({ signedIn }) {
         <div className="inputGp">
           <label> Category:</label>
           <Dropdown
-            onChange={(event) => { //doesn't work
-            setCategory(event.target.value); //doesn't work
-          }}
+            onChange={(event) => {
+              setCategory(event.target.value);
+            }}
+            action="Post Listing"
           >
             <Option selected value="Choose a category"/>
             <Option value="Books"/>
@@ -67,6 +72,12 @@ function CreatePost({ signedIn }) {
             <Option value="Furniture"/>
             <Option value="Sports Gear"/>
           </Dropdown>
+          <input
+            placeholder="Category..."
+            onChange={(event) => {
+              setCategory(event.target.value);
+            }}
+          />
         </div>
         <div className="inputGp">
           <label> Price:</label>
