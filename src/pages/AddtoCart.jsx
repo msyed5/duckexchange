@@ -2,7 +2,7 @@ import React from 'react';
 
 const [cart, setCart] = useState()
 
-function addToCart ( {signedIn}) {
+function addToCart ( {signedIn} ) {
     const addToCart = (productId, variantInfo) => {
         if (variantInfo) {
             commerce.cart.add(productId, 1, variantInfo).then(res => {
@@ -38,3 +38,5 @@ function addToCart ( {signedIn}) {
         </div>
     );
 }
+
+export default addToCart;
