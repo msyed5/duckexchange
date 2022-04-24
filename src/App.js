@@ -38,8 +38,6 @@ function App() {
       return <SignInScreen />
     }
 
-    
-
 
   return (
     <Router>
