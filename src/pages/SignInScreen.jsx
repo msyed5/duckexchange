@@ -1,32 +1,31 @@
 import { authentication } from '../backend/firebase-config';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Router, Routes ,Route, Switch } from 'react-router-dom';
-import Browse from './Browse';
+import { useNavigate } from "react-router-dom";
 
 
 
-const SignInScreen = ()=>{
+const SignInScreen = ({setSignedIn})=>{
+    let navigate = useNavigate();
     const signInWithGoogle = ()=>{
         const provider = new GoogleAuthProvider();
         signInWithPopup(authentication, provider)
         .then((re)=>{
-
-
-          <Router>
-            <Routes>
-              <Route path="/" component={Browse}/>
-            </Routes>
-          </Router>
-          
+          localStorage.setItem("setSignedIn", true);
+          setSignedIn(true);
+          navigate("/browse");
           console.log(re);
         })
         .catch((err)=>{
           console.log(err)
         })
       }
+
+
     return (
-        <div className="App">
-            <button onClick={signInWithGoogle}>
+        <div className="loginPage">
+        <h1> Welcome to Duck Exchange! </h1>
+        <h2> Log Into Your Duck Exchange Account Using Your Stevens Email </h2>
+            <button  className="login-with-google-btn" onClick={signInWithGoogle}>
               Sign In With Google
             </button>
         </div>
