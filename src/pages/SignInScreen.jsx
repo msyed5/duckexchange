@@ -24,7 +24,7 @@ const SignInScreen = ({setSignedIn})=>{
     return (
         <div className="loginPage">
         <h1> Welcome to Duck Exchange! </h1>
-        <h2> Log Into Your Duck Exchange Account Using Your Stevens Email </h2>
+        <h2> Log In or Register to your Duck Exchange Account </h2>
             <button  className="login-with-google-btn" onClick={signInWithGoogle}>
               Sign In With Google
             </button>
