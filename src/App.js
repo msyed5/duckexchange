@@ -12,6 +12,7 @@ import Cart from './pages/Cart';
 function App() {
     const [signedIn,setSignedIn] = useState(localStorage.getItem("setSignedIn"));
 
+
     // firebase authentication listener
     authentication.onAuthStateChanged((user)=>{
       if(user){

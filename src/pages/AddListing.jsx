@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, authentication } from "../backend/firebase-config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 function CreatePost({ signedIn }) {
   const [title, setTitle] = useState("");
@@ -22,6 +24,7 @@ function CreatePost({ signedIn }) {
       category,
       author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid },
     });
+    toast.success("Item created successfully");
     navigate("/addlisting");
   };
 
@@ -39,26 +42,34 @@ function CreatePost({ signedIn }) {
           <label> Item:</label>
           <input
             placeholder="Item..."
-            onChange={(event) => {
-              setTitle(event.target.value);
+            onChange={(e) => {
+              setTitle(e.target.value);
             }}
           />
         </div>
         <div className="inputGp">
           <label> Category:</label>
-          <input
-            placeholder="Will be a dropdown menu..."
-            onChange={(event) => {
-              setCategory(event.target.value);
-            }}
-          />
+          <select
+                  className="form-control mt-3"
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                >
+                  <option value="">Select a Category</option>
+                  <option value="Books">Books</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Furniture">Furniture</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Sports Gear">Sports Gear</option>
+                </select>
+
         </div>
         <div className="inputGp">
-          <label> Price:</label>
+          <label> Price($):</label>
           <input
             placeholder="Price..."
-            onChange={(event) => {
-              setPrice(event.target.value);
+            onChange={(e) => {
+              setPrice(e.target.value);
             }}
           />
         </div>
@@ -66,8 +77,8 @@ function CreatePost({ signedIn }) {
           <label> Condition:</label>
           <input
             placeholder="Condition..."
-            onChange={(event) => {
-              setCondition(event.target.value);
+            onChange={(e) => {
+              setCondition(e.target.value);
             }}
           />
         </div>
@@ -75,8 +86,8 @@ function CreatePost({ signedIn }) {
           <label> Description:</label>
           <textarea
             placeholder="Description..."
-            onChange={(event) => {
-              setPostText(event.target.value);
+            onChange={(e) => {
+              setPostText(e.target.value);
             }}
           />
         </div>
