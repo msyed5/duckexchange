@@ -16,16 +16,22 @@ function CreatePost({ signedIn }) {
   let navigate = useNavigate();
 
   const createPost = async () => {
-    await addDoc(postsCollectionRef, {
-      title,
-      price,
-      condition,
-      postText,
-      category,
-      author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid,
-      email: authentication.currentUser.email},
-    });
-    toast.success("Item created successfully");
+    //error checking empty inputs
+    if ((title.length || price.length || postText.length || condition.length) == 0){
+      alert("empty fields! try again");
+    }
+    else {
+      await addDoc(postsCollectionRef, {
+        title,
+        price,
+        condition,
+        postText,
+        category,
+        author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid,
+        email: authentication.currentUser.email},
+      });
+      alert("Listing created!");
+    }
     navigate("/addlisting");
   };
 

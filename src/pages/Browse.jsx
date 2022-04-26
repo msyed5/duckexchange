@@ -27,34 +27,11 @@ function Browse({
   signedIn
 }) {
   const [items, setItems] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [searchKey, setSearchKey] = useState("");
   const [filterType, setFilterType] = useState("");
   const users = collection(db, "posts");
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // async function getData() {
-  //   try {
-  //     const users = await getDocs(collection(db, "posts"));
-  //     const productsArray = [];
-  //     users.forEach((doc) => {
-  //       const obj = {
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       };
-  //     });
-  //
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-
 
 
   const deletePost = async (id) => {
