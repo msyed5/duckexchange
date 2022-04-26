@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../backend/firebase-config";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { FaBars, FaCartPlus, FaUser } from "react-icons/fa";
 
 function ProductInfo() {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cartReducer);
   const params = useParams();
   useEffect(() => {
     getData();
@@ -27,6 +30,12 @@ function ProductInfo() {
     }
   }
 
+  const addToCart = (item) => {
+    dispatch({ type: "ADD_TO_CART", payload: item });
+  };
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
 
   return (
@@ -48,7 +57,7 @@ function ProductInfo() {
             </div>
             </div>
             <div className="d-flex justify-content-start my-3">
-            <button className="btn-lg btn-success" > <FaCartPlus /> ADD TO CART</button>
+            <button className="btn-lg btn-success" onClick={()=>addToCart(item)} > <FaCartPlus /> ADD TO CART</button>
 
             </div>
 
