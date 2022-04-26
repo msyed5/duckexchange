@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 
 function Cart () {
-    const commerce = new Commerce(process.env.)
+    const commerce = new Commerce(process.env)
     const [cart, setCart] = useState()
     const addToCart = (productId, variantInfo) => {
         if (variantInfo) {
