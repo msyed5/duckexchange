@@ -22,7 +22,8 @@ function CreatePost({ signedIn }) {
       condition,
       postText,
       category,
-      author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid },
+      author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid,
+      email: authentication.currentUser.email},
     });
     toast.success("Item created successfully");
     navigate("/addlisting");
