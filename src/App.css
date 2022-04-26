@@ -201,7 +201,7 @@ NEW css */
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 .product p{
-    min-height:3rem;
+    min-height:2rem;
 }
 .product-img{
     height: 200px;
@@ -226,7 +226,7 @@ NEW css */
     font-weight: bold !important;
 }
 .product-info-img{
-    height:70vh;
+    height:50vh;
 }
 
 .total-amount{

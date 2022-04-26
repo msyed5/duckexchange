@@ -9,6 +9,7 @@ import {
   doc
 } from "firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   useNavigate
 } from "react-router-dom";
@@ -117,7 +118,6 @@ function Browse({
 
     {
       items
-
       .filter((data) => data.title.toLowerCase().includes(searchKey))
       .filter((data) => data.category.includes(filterType))
       .map((item) => {
@@ -128,9 +128,9 @@ function Browse({
           <
           div className = "product-content" >
           <
-          h1 > {
+          h2  className = "text-center"> {
             item.title
-          } < /h1> <
+          } < /h2> <
           div className = "text-center" >
           <
           img src = {
@@ -159,8 +159,10 @@ function Browse({
           div className = "d-flex" >
 
           <
-          button className = "btn btn-info mx-2" > View Item < /button> <
-          button className = "btn btn-info" > Post Item < /button> <
+          button className = "btn btn-info mx-2" onClick={() => {
+                            navigate(`/productinfo/${item.id}`);
+                          }} > View Item < /button> <
+          button className = "btn btn-info" > Add to Cart < /button> <
           /div> <
           /div> <
           /div> <

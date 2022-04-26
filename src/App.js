@@ -2,11 +2,13 @@ import './App.css';
 import {useState} from 'react';
 import { authentication } from './backend/firebase-config';
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import { FaBars, FaCartPlus, FaUser } from "react-icons/fa";
 import { signOut } from "firebase/auth";
 import SignInScreen from './pages/SignInScreen';
 import Browse from './pages/Browse';
 import AddListing from './pages/AddListing';
 import Cart from './pages/Cart';
+import ProductInfo from './pages/ProductInfo';
 
 
 function App() {
@@ -49,7 +51,7 @@ function App() {
           <>
             <Link to="/browse"> Browse </Link>
             <Link to="/addlisting"> Sell </Link>
-            <Link to="/cart"> Cart </Link>
+            <Link to="/cart"> <FaCartPlus /> Cart </Link>
             <button className="btn btn-danger" onClick={signUserOut}> Log Out</button>
           </>
         )}
@@ -60,6 +62,8 @@ function App() {
               <Route path="/browse" element={protectedRoute(<Browse signedIn={signedIn} />)} />
               <Route path="/addlisting" element={protectedRoute(<AddListing signedIn={signedIn}/>)} />
               <Route path="/cart" element={protectedRoute(<Cart />)} />
+              <Route path="/productinfo/:itemid" element={protectedRoute(<ProductInfo />)} />
+
              </Routes>
       </Router>
   );
