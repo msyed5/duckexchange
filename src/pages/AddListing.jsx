@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, authentication } from "../backend/firebase-config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 
 
@@ -19,25 +21,36 @@ function CreatePost({ signedIn }) {
   const [dimension, setDimension] = useState("");
   const [model, setModel] = useState("");
   const [size, setSize] = useState("");
+  const [condition, setCondition] = useState("");
+  const [imageUpload, setImageUpload] = useState(null);
 
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
 
   const createPost = async () => {
-    await addDoc(postsCollectionRef, {
-      title,
-      price,
-      postText,
-      category,
-      edition,
-      courseNumber,
-      weight,
-      color,
-      dimension,
-      model,
-      size,
-      author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid },
-    });
+    //error checking empty inputs
+    if ((title.length || price.length || postText.length || condition.length) == 0){
+      alert("empty fields! try again");
+    }
+    else {
+      await addDoc(postsCollectionRef, {
+        title,
+        price,
+        postText,
+        category,
+        edition,
+        courseNumber,
+        weight,
+        color,
+        dimension,
+        model,
+        size,
+        imageUpload,
+        author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid,
+        email: authentication.currentUser.email},
+      });
+      alert("Listing created!");
+    }
     navigate("/addlisting");
   };
 
@@ -47,46 +60,64 @@ function CreatePost({ signedIn }) {
     }
   }, []);
 
-  const [visible, setVisible] = React.useState(false);
 
   return (
     <div className="createPostPage">
       <div className="cpContainer">
         <h1>Create New Listing</h1>
-        
-        <br></br>
-        <div classname="inputGp">
-          <label>Category:</label>
-          <br></br>
-          <select
-            id = "select"
-            name = "category"
-            value = {category}
-            onChange = {(event) => {
-              setCategory(event.target.value);
+        <div className="inputGp">
+          <label> Item:</label>
+          <input
+            placeholder="Item..."
+            onChange={(e) => {
+              setTitle(e.target.value);
             }}
-            >
-              <option value = "Books" >Book</option>
-              <option value = "Clothing">Clothing</option>
-              <option value = "Electronics">Electronics</option>
-              <option value = "Sports Gear">Sports Gear</option>
-              <option value = "Furniture">Furniture</option>
-              <option value = "Other">Other</option>
-            </select>
+          />
+        </div>
+        <div className="inputGp">
+          <label> Category:</label>
+          <select
+                  className="form-control mt-3"
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                >
+                  <option value="">Select a Category</option>
+                  <option value="Books">Books</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Furniture">Furniture</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Sports Gear">Sports Gear</option>
+                </select>
+
         </div>
 
 
         <div className="inputGp">
-          <label> Price:</label>
+          <label> Price($):</label>
           <input
             placeholder="Price..."
-            onChange={(event) => {
-              setPrice(event.target.value);
-
+            onChange={(e) => {
+              setPrice(e.target.value);
             }}
           />
         </div>
-
+        <div className="inputGp">
+          <label> Condition:</label>
+          <select
+                  className="form-control mt-3"
+                  onChange={(e) => {
+                    setCondition(e.target.value);
+                  }}
+                >
+                  <option value="">Select Condition</option>
+                  <option value="Brand New"> Brand New</option>
+                  <option value="Like new">Like new</option>
+                  <option value="Very good">Very good</option>
+                  <option value="Good">Good</option>
+                  <option value="Acceptable">Acceptable</option>
+                </select>
+        </div>
 
         <div id = "BookInputs">
           
@@ -119,7 +150,6 @@ function CreatePost({ signedIn }) {
             />
           </div>
         </div>
-
 
         <div id = "ClothingInputs">
           <div className="inputGp">
@@ -218,11 +248,17 @@ function CreatePost({ signedIn }) {
           <label> Description:</label>
           <textarea
             placeholder="Description..."
-            onChange={(event) => {
-              setPostText(event.target.value);
+            onChange={(e) => {
+              setPostText(e.target.value);
             }}
           />
         </div>
+
+        <br></br>
+        <label>Picture:
+          <br></br>
+          <input id ="image" type = "file" accept="image/png, image/gif, image/jpeg" onChange = {(event) => {setImageUpload(event.target.files[0])}}/>
+        </label>
 
         <button disabled = {!(price, title)} className="btn btn-info" onClick={createPost}> Post Listing</button>
       </div>
