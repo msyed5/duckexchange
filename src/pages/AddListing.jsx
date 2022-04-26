@@ -3,12 +3,22 @@ import { addDoc, collection } from "firebase/firestore";
 import { db, authentication } from "../backend/firebase-config";
 import { useNavigate } from "react-router-dom";
 
+
+
+
+
 function CreatePost({ signedIn }) {
   const [title, setTitle] = useState("");
+  const [edition, setEdition] = useState("");
+  const [courseNumber, setCourseNumber] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
-  const [condition, setCondition] = useState("");
+  const [weight, setWeight] = useState("");
+  const [color, setColor] = useState("");
   const [postText, setPostText] = useState("");
+  const [dimension, setDimension] = useState("");
+  const [model, setModel] = useState("");
+  const [size, setSize] = useState("");
 
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
@@ -17,9 +27,15 @@ function CreatePost({ signedIn }) {
     await addDoc(postsCollectionRef, {
       title,
       price,
-      condition,
       postText,
       category,
+      edition,
+      courseNumber,
+      weight,
+      color,
+      dimension,
+      model,
+      size,
       author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid },
     });
     navigate("/addlisting");
@@ -31,9 +47,7 @@ function CreatePost({ signedIn }) {
     }
   }, []);
 
-  const select = document.getElementById('chooseType')
-  const inputs = document.querySelector('section')
-
+  const [visible, setVisible] = React.useState(false);
 
   return (
     <div className="createPostPage">
@@ -51,9 +65,8 @@ function CreatePost({ signedIn }) {
             onChange = {(event) => {
               setCategory(event.target.value);
             }}
-            
             >
-              <option value = "Books">Books</option>
+              <option value = "Books" >Book</option>
               <option value = "Clothing">Clothing</option>
               <option value = "Electronics">Electronics</option>
               <option value = "Sports Gear">Sports Gear</option>
@@ -61,35 +74,146 @@ function CreatePost({ signedIn }) {
               <option value = "Other">Other</option>
             </select>
         </div>
+
+
         <div className="inputGp">
           <label> Price:</label>
           <input
             placeholder="Price..."
             onChange={(event) => {
               setPrice(event.target.value);
+
             }}
           />
         </div>
-        <div className="inputGp"
-          id = "inputs"
-        >
-          <label> Title:</label>
-          <input
-            placeholder="Item..."
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
-          />
+
+
+        <div id = "BookInputs">
+          
+          <div className="inputGp">
+            <label> Title:</label>
+            <input
+              placeholder="Title..."
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
+            />
+          </div>
+
+          <div className="inputGp">
+            <label> Edition:</label>
+            <input
+              placeholder="Edition..."
+              onChange={(event) => {
+                setEdition(event.target.value);
+              }}
+            />
+          </div>
+          <div className="inputGp">
+            <label> Course Number:</label>
+            <input
+              placeholder="Course Number..."
+              onChange={(event) => {
+                setCourseNumber(event.target.value);
+              }}
+            />
+          </div>
         </div>
-        <div className="inputGp">
-          <label> Edition:</label>
-          <input
-            placeholder="Edition..."
-            onChange={(event) => {
-              setCondition(event.target.value);
-            }}
-          />
+
+
+        <div id = "ClothingInputs">
+          <div className="inputGp">
+            <label> Size:</label>
+            <input
+              placeholder="Size..."
+              onChange={(event) => {
+                setSize(event.target.value);
+              }}
+            />
+          </div>
+          <div className="inputGp">
+            <label> Color:</label>
+            <input
+              placeholder="Color..."
+              onChange={(event) => {
+                setColor(event.target.value);
+              }}
+            />
+          </div>
         </div>
+
+        <div id = "FurnitureInputs">
+          <div className="inputGp">
+            <label> Color:</label>
+            <input
+              placeholder="Color..."
+              onChange={(event) => {
+                setColor(event.target.value);
+              }}
+            />
+          </div>
+          <div className="inputGp">
+            <label> Dimensions:</label>
+            <input
+              placeholder="Dimension..."
+              onChange={(event) => {
+              setDimension(event.target.value);
+              }}
+            />
+            <div className="inputGp">
+            <label> Weight:</label>
+            <input
+              placeholder="Weight..."
+              onChange={(event) => {
+                setWeight(event.target.value);
+              }}
+            />
+          </div>
+        </div>
+
+        <div id = "ElectronicInputs">
+          <div className="inputGp">
+            <label> Model:</label>
+            <input
+              placeholder="Model..."
+              onChange={(event) => {
+                setModel(event.target.value);
+              }}
+            />
+          </div>
+          <div className="inputGp">
+            <label> Dimensions:</label>
+            <input
+              placeholder="Dimension..."
+              onChange={(event) => {
+                setDimension(event.target.value);
+              }}
+            />
+            </div>
+            <div className="inputGp">
+            <label> Weight:</label>
+            <input
+              placeholder="Weight..."
+              onChange={(event) => {
+                setWeight(event.target.value);
+              }}
+            />
+          </div>
+        </div>
+
+        <div id = "SportsInputs">
+          <div className="inputGp">
+            <label> Weight:</label>
+            <input
+              placeholder="Weight..."
+              onChange={(event) => {
+                setWeight(event.target.value);
+              }}
+            />
+          </div>
+        </div>
+
+
         <div className="inputGp">
           <label> Description:</label>
           <textarea
@@ -99,9 +223,11 @@ function CreatePost({ signedIn }) {
             }}
           />
         </div>
-        <button disabled = {!(price, title, condition)} className="btn btn-info" onClick={createPost}> Post Listing</button>
+
+        <button disabled = {!(price, title)} className="btn btn-info" onClick={createPost}> Post Listing</button>
       </div>
     </div>
+  </div>
   );
 }
 
