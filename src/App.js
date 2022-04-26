@@ -9,10 +9,13 @@ import Browse from './pages/Browse';
 import AddListing from './pages/AddListing';
 import Cart from './pages/Cart';
 import ProductInfo from './pages/ProductInfo';
+import { useSelector } from "react-redux";
+
 
 
 function App() {
     const [signedIn,setSignedIn] = useState(localStorage.getItem("setSignedIn"));
+    const { cartItems } = useSelector((state) => state.cartReducer);
 
 
     // firebase authentication listener
@@ -51,7 +54,7 @@ function App() {
           <>
             <Link to="/browse"> Browse </Link>
             <Link to="/addlisting"> Sell </Link>
-            <Link to="/cart"> <FaCartPlus /> Cart </Link>
+            <Link to="/cart">  Cart ({cartItems.length})</Link>
             <button className="btn btn-danger" onClick={signUserOut}> Log Out</button>
           </>
         )}

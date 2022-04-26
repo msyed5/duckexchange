@@ -1,36 +1,22 @@
-import React, {
-  useEffect,
-  useState
-} from "react";
-import {
-  getDocs,
-  collection,
-  deleteDoc,
-  doc
-} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {
-  useNavigate
-} from "react-router-dom";
-import {
-  useDispatch,
-  useSelector
-} from "react-redux";
-import {
-  authentication,
-  db
-} from "../backend/firebase-config";
+import { useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authentication, db } from "../backend/firebase-config";
 
 
 function Browse({
   signedIn
 }) {
   const [items, setItems] = useState([]);
+  const { cartItems } = useSelector((state) => state.cartReducer);
   const [loading, setLoading] = useState(false);
   const [searchKey, setSearchKey] = useState("");
   const [filterType, setFilterType] = useState("");
   const users = collection(db, "posts");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
@@ -51,6 +37,14 @@ function Browse({
 
     getPosts();
   }, []);
+
+  useEffect(() => {
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}, [cartItems]);
+
+const addToCart = (item) => {
+  dispatch({ type: "ADD_TO_CART", payload: item });
+};
 
   return ( <
     div className = "container" >
@@ -139,7 +133,7 @@ function Browse({
           button className = "btn btn-info mx-2" onClick={() => {
                             navigate(`/productinfo/${item.id}`);
                           }} > View Item < /button> <
-          button className = "btn btn-info" > Add to Cart < /button> <
+          button className = "btn btn-info" onClick={() => addToCart(item)} > Add to Cart < /button> <
           /div> <
           /div> <
           /div> <
