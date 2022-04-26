@@ -93,27 +93,24 @@ function CartPage() {
       </table>
 
       <div className="d-flex justify-content-end">
-        <h1 className="total-amount">Total Amount = ${totalAmount}</h1>
+        <h1 className="total-amount">Subtotal:  ${totalAmount}</h1>
       </div>
       <div className="d-flex justify-content-end mt-3">
-        <button onClick={handleShow}>PLACE ORDER</button>
+        <button className="btn-lg btn-primary" onClick={handleShow}>Checkout</button>
       </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add your address</Modal.Title>
+          <Modal.Title>Order Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {" "}
           <div className="register-form">
-            <h2>Register</h2>
-
-            <hr />
 
             <input
               type="text"
               className="form-control"
-              placeholder="name"
+              placeholder="Ship to: "
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
@@ -130,15 +127,7 @@ function CartPage() {
                 setAddress(e.target.value);
               }}
             />
-            <input
-              className="form-control"
-              placeholder="pincode"
-              type="number"
-              value={pincode}
-              onChange={(e) => {
-                setPincode(e.target.value);
-              }}
-            />
+
 
             <input
               type="number"
@@ -155,7 +144,7 @@ function CartPage() {
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Close</button>
-          <button onClick={placeOrder}>ORDER</button>
+          <button className="btn btn-primary" onClick={placeOrder}>ORDER</button>
         </Modal.Footer>
       </Modal>
     </div>

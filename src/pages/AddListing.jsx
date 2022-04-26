@@ -82,12 +82,19 @@ function CreatePost({ signedIn }) {
         </div>
         <div className="inputGp">
           <label> Condition:</label>
-          <input
-            placeholder="Condition..."
-            onChange={(e) => {
-              setCondition(e.target.value);
-            }}
-          />
+          <select
+                  className="form-control mt-3"
+                  onChange={(e) => {
+                    setCondition(e.target.value);
+                  }}
+                >
+                  <option value="">Select Condition</option>
+                  <option value="Brand New"> Brand New</option>
+                  <option value="Like new">Like new</option>
+                  <option value="Very good">Very good</option>
+                  <option value="Good">Good</option>
+                  <option value="Acceptable">Acceptable</option>
+                </select>
         </div>
         <div className="inputGp">
           <label> Description:</label>

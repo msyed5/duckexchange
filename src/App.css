@@ -230,10 +230,12 @@ NEW css */
 }
 
 .total-amount{
-    background-color : #D2B48C;
-    padding: 10px;
+    background-color : #ffa500;
+    padding: 15px;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
     font-weight: bold;
 }
 .total-amount:hover{
