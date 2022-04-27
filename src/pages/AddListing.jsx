@@ -29,6 +29,7 @@ function CreatePost({ signedIn }) {
 
 
 
+
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
 
@@ -74,11 +75,13 @@ function CreatePost({ signedIn }) {
   
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
+  const [fileName, setFileName] = useState("");
+  
 
   const imagesListRef = ref(storage, "images/");
   const uploadFile = () => {
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/`);
+    const imageRef = ref(storage, `images/${fileName}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrls((prev) => [...prev, url]);
@@ -86,7 +89,7 @@ function CreatePost({ signedIn }) {
     });
   };
 
-  
+
 
 
   return (
@@ -285,7 +288,7 @@ function CreatePost({ signedIn }) {
         <br></br>
         <label>Picture:
           <br></br>
-          <input type = "file" accept="image/png, image/gif, image/jpeg" onChange = {(event) => {setImageUpload(event.target.files)}}>
+          <input type = "file" id = "file" accept="image/jpg" onChange = {(event) => {setImageUpload(event.target.files);setFileName(event.target.files.name)}}>
           </input>
         </label>
 
