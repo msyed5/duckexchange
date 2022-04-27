@@ -1,0 +1,41 @@
+h1 {
+    text-align: center;
+}
+
+#image {
+    justify-content: center;
+}
+h3 {
+    text-align: center;
+}
+
+p {
+    white-space: nowrap;
+}
+
+
+#addToCart {
+    justify-content: center;
+}
+
+#button {
+    justify-items: center;
+}
+
+p {
+    white-space: nowrap;
+}
+
+#words {
+    text-align: center;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    white-space: nowrap;
+}
