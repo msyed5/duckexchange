@@ -5,7 +5,7 @@ import { db, authentication, storage } from "../backend/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ref, uploadBytes, getDownloadURL, listAll, list, } from "firebase/storage";
-import { v4 } from 'uuid';
+import * as ReactDOM from 'react-dom'
 
 
 
@@ -26,6 +26,7 @@ function CreatePost({ signedIn }) {
   const [model, setModel] = useState("");
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
+  const [type, setType] = useState("");
 
 
 
@@ -89,6 +90,52 @@ function CreatePost({ signedIn }) {
     });
   };
 
+  //used to show and hide the specific fields
+  const [showBooks, setShowBooks] = useState(false);
+  function showHiddenBooks(itemType){
+    if (itemType == "Books"){
+      setShowBooks(true);
+    }
+    else{
+      setShowBooks(false);
+    }
+  }
+  const [showClothes, setShowClothes] = useState(false);
+  function showHiddenClothes(itemType){
+    if (itemType == "Clothing"){
+      setShowClothes(true);
+    }
+    else{
+      setShowClothes(false);
+    }
+  }
+  const [showFurniture, setShowFurniture] = useState(false);
+  function showHiddenFurniture(itemType){
+    if (itemType == "Furniture"){
+      setShowFurniture(true);
+    }
+    else{
+      setShowFurniture(false);
+    }
+  }
+  const [showElectronics, setShowElectronics] = useState(false);
+  function showHiddenElectronics(itemType){
+    if (itemType == "Electronics"){
+      setShowElectronics(true);
+    }
+    else{
+      setShowElectronics(false);
+    }
+  }
+  const [showSports, setShowSports] = useState(false);
+  function showHiddenSports(itemType){
+    if (itemType == "Sports Gear"){
+      setShowSports(true);
+    }
+    else{
+      setShowSports(false);
+    }
+  }
 
 
 
@@ -111,6 +158,12 @@ function CreatePost({ signedIn }) {
                   className="form-control mt-3"
                   onChange={(e) => {
                     setCategory(e.target.value);
+                    setType(e.target.value);
+                    showHiddenBooks(e.target.value);
+                    showHiddenClothes(e.target.value);
+                    showHiddenFurniture(e.target.value);
+                    showHiddenElectronics(e.target.value);
+                    showHiddenSports(e.target.value);
                   }}
                 >
                   <option value="">Select a Category</option>
@@ -150,6 +203,7 @@ function CreatePost({ signedIn }) {
                 </select>
         </div>
 
+        {showBooks &&
         <div id = "BookInputs">
           
           <div className="inputGp">
@@ -163,7 +217,7 @@ function CreatePost({ signedIn }) {
           </div>
 
           <div className="inputGp">
-            <label> Edition:</label>
+            <label>Edition: </label>
             <input
               placeholder="Edition..."
               onChange={(event) => {
@@ -181,7 +235,9 @@ function CreatePost({ signedIn }) {
             />
           </div>
         </div>
+        }
 
+        {showClothes &&
         <div id = "ClothingInputs">
           <div className="inputGp">
             <label> Size:</label>
@@ -202,7 +258,9 @@ function CreatePost({ signedIn }) {
             />
           </div>
         </div>
+        }
 
+        {showFurniture &&
         <div id = "FurnitureInputs">
           <div className="inputGp">
             <label> Color:</label>
@@ -221,7 +279,8 @@ function CreatePost({ signedIn }) {
               setDimension(event.target.value);
               }}
             />
-            <div className="inputGp">
+          </div>
+          <div className="inputGp">
             <label> Weight:</label>
             <input
               placeholder="Weight..."
@@ -231,7 +290,9 @@ function CreatePost({ signedIn }) {
             />
           </div>
         </div>
+        }   
 
+        {showElectronics &&
         <div id = "ElectronicInputs">
           <div className="inputGp">
             <label> Model:</label>
@@ -261,7 +322,9 @@ function CreatePost({ signedIn }) {
             />
           </div>
         </div>
+        }
 
+        {showSports &&
         <div id = "SportsInputs">
           <div className="inputGp">
             <label> Weight:</label>
@@ -273,6 +336,7 @@ function CreatePost({ signedIn }) {
             />
           </div>
         </div>
+        }
 
 
         <div className="inputGp">
@@ -295,7 +359,6 @@ function CreatePost({ signedIn }) {
         <button className="btn btn-info" onClick = {() => {createPost();uploadFile()}}> Post Listing</button>
       </div>
     </div>
-  </div>
   );
 }
 
