@@ -12,6 +12,7 @@ function CreatePost({ signedIn }) {
   const [condition, setCondition] = useState("");
   const [postText, setPostText] = useState("");
 
+
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
 
