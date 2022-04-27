@@ -6,8 +6,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
-
-//import "./css/Cart.css";
+import "./css/Cart.css";
 
 
 function CartPage() {
@@ -63,20 +62,13 @@ function CartPage() {
       setLoading(true);
       const result = await addDoc(collection(db, "orders"), orderInfo);
 
-      // emailjs.sendForm('service_bkpxqmi', 'template_3zk3jlo', form.current, 'HIopd2_vIsbBiB_OM')
-      // .then((result) => {
-      //     console.log(result.text);
-      // }, (error) => {
-      //     console.log(error.text);
-      // });
-
-      // const sendBuyerEmail = await addDoc(collection(db, "mail"), ({
-      //   to: 'msyed5@stevens.edu',
-      //   message: {
-      //     subject: 'You Recieved an Order!',
-      //     html: '<h1>Hello, {orderInfo.BuyerName} </h1>',
-      //   },
-      // }));
+      const sendBuyerEmail = await addDoc(collection(db, "mail"), ({
+        to: 'msyed5@stevens.edu',
+        message: {
+          subject: 'You Received an Order!',
+          html: '<h1>Hello, {orderInfo.BuyerName} </h1>',
+        },
+      }));
 
       // db.collection('mail').add({
       //   to: 'msyed5@stevens.edu',
@@ -99,24 +91,24 @@ function CartPage() {
 
   return (
     <div>
-      <table className="table mt-3">
+      <table className="table mt-3" id="table">
         <thead>
           <tr>
-            <th>Name </th>
-            <th>Price</th>
+            <th id="name">Name </th>
+            <th id="price">Price</th>
           </tr>
         </thead>
         <tbody>
           {cartItems.map((item) => {
             return (
               <tr>
-
-                <h3> <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} height="100" width="" />
+                <h3> <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} height="100" width="100"/>
                     {item.title}</h3>
-                <td>${item.price}</td>
+                <td id="item_price">${item.price}</td>
                 <td>
                   <button
                     className="btn btn-outline-danger"
+                    id="delete"
                     onClick={() => deleteFromCart(item)}
                   >
                     {" "}
@@ -132,7 +124,8 @@ function CartPage() {
       <div className="d-flex justify-content-center" id="subtotal">
         <h1 className="total-amount">Subtotal: ${totalAmount}</h1>
       </div>
-      <div className="d-flex justify-content-end mt-3">
+      <p/>
+      <div className="d-flex " id="checkout">
         <button className="btn-lg btn-primary" onClick={handleShow}>
           Checkout
         </button>

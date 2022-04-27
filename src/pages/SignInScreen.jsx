@@ -1,7 +1,7 @@
 import { authentication } from '../backend/firebase-config';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-// import logo from ".pages/logoduck.png";
+import logo from "../logoduck.png";
 
 
 const SignInScreen = ({ setSignedIn }) => {
@@ -24,7 +24,7 @@ const SignInScreen = ({ setSignedIn }) => {
   return (
     <div className="loginPage">
       <h1> Welcome to Duck Exchange! </h1>
-      <h2> Log In or Register to your Duck Exchange Account </h2>
+      <h2> Login to your myStevens account </h2>
       <button className="login-with-google-btn" onClick={signInWithGoogle}>
         Sign In With Google
       </button>

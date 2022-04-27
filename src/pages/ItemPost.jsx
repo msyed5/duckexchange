@@ -76,17 +76,17 @@ const ItemPost = ()=>{
                     type = "number"
                     value = {state.quantity}
                     onChange = {handleChange}
-                
+
                 />
                 <br></br>
             </label>
-            
+
             <label>Item Description:
                 <br></br>
                 <input
                     name = "ItemDescription"
                     type = "default"
-                
+
                 />
                 <br></br>
             </label>
