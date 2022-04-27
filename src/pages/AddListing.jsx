@@ -1,8 +1,12 @@
+//have to "npm install --save firebase"
 import React, { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db, authentication } from "../backend/firebase-config";
+import { db, authentication, storage } from "../backend/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ref, uploadBytes, getDownloadURL, listAll, list, } from "firebase/storage";
+import { v4 } from 'uuid';
+
 
 
 
@@ -22,17 +26,18 @@ function CreatePost({ signedIn }) {
   const [model, setModel] = useState("");
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
-  const [imageUpload, setImageUpload] = useState(null);
+
+
 
   const postsCollectionRef = collection(db, "posts");
   let navigate = useNavigate();
 
   const createPost = async () => {
     //error checking empty inputs
-    if ((title.length || price.length || postText.length || condition.length) == 0){
-      alert("empty fields! try again");
-    }
-    else {
+    //if ((title.length || price.length || postText.length || condition.length) == 0){
+    //  alert("empty fields! try again");
+    //}
+    //else {
       await addDoc(postsCollectionRef, {
         title,
         price,
@@ -45,12 +50,12 @@ function CreatePost({ signedIn }) {
         dimension,
         model,
         size,
-        imageUpload,
+        condition,
         author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid,
         email: authentication.currentUser.email},
       });
-      alert("Listing created!");
-    }
+      //alert("Listing created!");
+    //}
     navigate("/addlisting");
   };
 
@@ -60,6 +65,26 @@ function CreatePost({ signedIn }) {
     }
   }, []);
 
+
+  
+  const storageRef = ref(storage, 'images');
+  uploadBytes(storageRef, ).then((snapshot) => {
+    console.log('uploaded a file');
+  });
+  
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  const imagesListRef = ref(storage, "images/");
+  const uploadFile = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images/`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrls((prev) => [...prev, url]);
+      });
+    });
+  };
 
   return (
     <div className="createPostPage">
@@ -257,10 +282,14 @@ function CreatePost({ signedIn }) {
         <br></br>
         <label>Picture:
           <br></br>
-          <input id ="image" type = "file" accept="image/png, image/gif, image/jpeg" onChange = {(event) => {setImageUpload(event.target.files[0])}}/>
+          <input type = "file" accept="image/png, image/gif, image/jpeg" onChange = {(event) => {setImageUpload(event.target.files)}}>
+          </input>
         </label>
 
-        <button disabled = {!(price, title)} className="btn btn-info" onClick={createPost}> Post Listing</button>
+        <button className="btn btn-info" onClick = {() => {createPost();uploadFile()}}> Post Listing</button>
+        {imageUrls.map((url) => {
+          return <img src={url} />;
+        })}
       </div>
     </div>
   </div>
