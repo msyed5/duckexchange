@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authentication, db } from "../backend/firebase-config";
 
-import "./css/Browse.css";
-
 function Browse({ signedIn }) {
   const [items, setItems] = useState([]);
   const { cartItems } = useSelector((state) => state.cartReducer);
