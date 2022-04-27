@@ -4,9 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authentication, db } from "../backend/firebase-config";
+import { authentication, db, storage } from "../backend/firebase-config";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-import "./css/Browse.css";
+// import "./css/Browse.css";
 
 function Browse({ signedIn }) {
   const [items, setItems] = useState([]);
@@ -45,6 +46,22 @@ function Browse({ signedIn }) {
   const addToCart = (item) => {
     dispatch({ type: "ADD_TO_CART", payload: item });
   };
+
+  /*
+  //to access image
+  const [url, setUrl] = useState();
+
+  useEffect(() => {
+    const func = async () => {
+      const reference = ref(storage, '/EmptyBook.jpg');
+      await getDownloadURL(reference).then((e) => {
+        setUrl(e);
+        console.log("the url is " + url);
+      })
+    }
+      func();
+  })
+*/
 
   return (
     <div className="container">
@@ -85,9 +102,7 @@ function Browse({ signedIn }) {
                     <h2 className="text-center"> {item.title} </h2>{" "}
                     <div className="text-center">
                       <img
-                        src={
-                          "https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"
-                        }
+                        src = "https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"
                         alt=""
                         className="product-img"
                       />

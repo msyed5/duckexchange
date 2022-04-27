@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
 import "./css/Cart.css";
 
 
@@ -21,6 +22,8 @@ function CartPage() {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const form = useRef();
 
 
   useEffect(() => {
@@ -51,7 +54,7 @@ function CartPage() {
       cartItems,
       addressInfo,
       BuyerName: authentication.currentUser.displayName,
-      email: authentication.currentUser.email,
+      BuyerEmail: authentication.currentUser.email,
       userid: authentication.currentUser.uid,
     };
 
@@ -74,7 +77,6 @@ function CartPage() {
       //     html: '<h1>Confirm</h1>',
       //   },
       // })
-
 
       setLoading(false);
       toast.success("Order placed successfully");
@@ -122,7 +124,7 @@ function CartPage() {
       <div className="d-flex justify-content-center" id="subtotal">
         <h1 className="total-amount">Subtotal: ${totalAmount}</h1>
       </div>
-      <p/> 
+      <p/>
       <div className="d-flex " id="checkout">
         <button className="btn-lg btn-primary" onClick={handleShow}>
           Checkout
@@ -134,10 +136,10 @@ function CartPage() {
           <Modal.Title>Order Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {" "}
-          <div className="register-form">
+          <form ref={form} className="register-form">
             <input
               type="text"
+              name="name"
               className="form-control"
               placeholder="Ship to: "
               value={name}
@@ -158,7 +160,6 @@ function CartPage() {
             />
 
             <input
-              type="number"
               className="form-control"
               placeholder="phone number"
               value={phoneNumber}
@@ -166,9 +167,10 @@ function CartPage() {
                 setPhoneNumber(e.target.value);
               }}
             />
+            <p name="email"> {authentication.currentUser.email} </p>
 
             <hr />
-          </div>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Close</button>
