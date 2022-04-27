@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
+//import "./css/Cart.css";
 
 
 function CartPage() {
@@ -77,7 +78,7 @@ function CartPage() {
 
       setLoading(false);
       toast.success("Order placed successfully");
-      handleClose()
+      handleClose();
     } catch (error) {
       setLoading(false);
       toast.error("Order failed");
@@ -87,8 +88,7 @@ function CartPage() {
   };
 
   return (
-
-    <div >
+    <div>
       <table className="table mt-3">
         <thead>
           <tr>
@@ -105,7 +105,13 @@ function CartPage() {
                     {item.title}</h3>
                 <td>${item.price}</td>
                 <td>
-                  <button className="btn btn-outline-danger" onClick={() => deleteFromCart(item)} > Delete </button>
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={() => deleteFromCart(item)}
+                  >
+                    {" "}
+                    Delete{" "}
+                  </button>
                 </td>
               </tr>
             );
@@ -113,11 +119,13 @@ function CartPage() {
         </tbody>
       </table>
 
-      <div className="d-flex justify-content-end">
-        <h1 className="total-amount">Subtotal:  ${totalAmount}</h1>
+      <div className="d-flex justify-content-center" id="subtotal">
+        <h1 className="total-amount">Subtotal: ${totalAmount}</h1>
       </div>
       <div className="d-flex justify-content-end mt-3">
-        <button className="btn-lg btn-primary" onClick={handleShow}>Checkout</button>
+        <button className="btn-lg btn-primary" onClick={handleShow}>
+          Checkout
+        </button>
       </div>
 
       <Modal show={show} onHide={handleClose}>
@@ -127,7 +135,6 @@ function CartPage() {
         <Modal.Body>
           {" "}
           <div className="register-form">
-
             <input
               type="text"
               className="form-control"
@@ -149,7 +156,6 @@ function CartPage() {
               }}
             />
 
-
             <input
               type="number"
               className="form-control"
@@ -165,7 +171,9 @@ function CartPage() {
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Close</button>
-          <button className="btn btn-primary" onClick={placeOrder}>ORDER</button>
+          <button className="btn btn-primary" onClick={placeOrder}>
+            ORDER
+          </button>
         </Modal.Footer>
       </Modal>
     </div>
