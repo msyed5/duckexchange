@@ -58,7 +58,7 @@ function CartPage() {
       const result = await addDoc(collection(db, "orders"), orderInfo);
       setLoading(false);
       toast.success("Order placed successfully");
-      handleClose()
+      handleClose();
     } catch (error) {
       setLoading(false);
       toast.error("Order failed");
@@ -66,8 +66,7 @@ function CartPage() {
   };
 
   return (
-
-    <div >
+    <div>
       <table className="table mt-3">
         <thead>
           <tr>
@@ -79,13 +78,26 @@ function CartPage() {
           {cartItems.map((item) => {
             return (
               <tr>
-
-
-                <h3> <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} height="100" width="100" />
-                    {item.title}</h3>
+                <h3>
+                  {" "}
+                  <img
+                    src={
+                      "https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"
+                    }
+                    height="100"
+                    width="100"
+                  />
+                  {item.title}
+                </h3>
                 <td>${item.price}</td>
                 <td>
-                  <button className="btn btn-outline-danger" onClick={() => deleteFromCart(item)} > Delete </button>
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={() => deleteFromCart(item)}
+                  >
+                    {" "}
+                    Delete{" "}
+                  </button>
                 </td>
               </tr>
             );
@@ -93,11 +105,13 @@ function CartPage() {
         </tbody>
       </table>
 
-      <div className="d-flex justify-content-end">
-        <h1 className="total-amount">Subtotal:  ${totalAmount}</h1>
+      <div className="d-flex justify-content-center" id="subtotal">
+        <h1 className="total-amount">Subtotal: ${totalAmount}</h1>
       </div>
       <div className="d-flex justify-content-end mt-3">
-        <button className="btn-lg btn-primary" onClick={handleShow}>Checkout</button>
+        <button className="btn-lg btn-primary" onClick={handleShow}>
+          Checkout
+        </button>
       </div>
 
       <Modal show={show} onHide={handleClose}>
@@ -107,7 +121,6 @@ function CartPage() {
         <Modal.Body>
           {" "}
           <div className="register-form">
-
             <input
               type="text"
               className="form-control"
@@ -129,7 +142,6 @@ function CartPage() {
               }}
             />
 
-
             <input
               type="number"
               className="form-control"
@@ -145,7 +157,9 @@ function CartPage() {
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Close</button>
-          <button className="btn btn-primary" onClick={placeOrder}>ORDER</button>
+          <button className="btn btn-primary" onClick={placeOrder}>
+            ORDER
+          </button>
         </Modal.Footer>
       </Modal>
     </div>
