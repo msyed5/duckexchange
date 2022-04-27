@@ -8,6 +8,8 @@ import SignInScreen from './pages/SignInScreen';
 import Browse from './pages/Browse';
 import AddListing from './pages/AddListing';
 import Cart from './pages/Cart';
+import Orders from './pages/Orders';
+
 import ProductInfo from './pages/ProductInfo';
 import { useSelector } from "react-redux";
 
@@ -54,6 +56,7 @@ function App() {
           <>
             <Link to="/browse"> Browse </Link>
             <Link to="/addlisting"> Sell </Link>
+            <Link to="/orders"> My Orders </Link>
             <Link to="/cart">  Cart ({cartItems.length})</Link>
             <button className="btn btn-danger" onClick={signUserOut}> Log Out</button>
           </>
@@ -65,6 +68,7 @@ function App() {
               <Route path="/browse" element={protectedRoute(<Browse signedIn={signedIn} />)} />
               <Route path="/addlisting" element={protectedRoute(<AddListing signedIn={signedIn}/>)} />
               <Route path="/cart" element={protectedRoute(<Cart />)} />
+              <Route path="/orders" element={protectedRoute(<Orders />)} />
               <Route path="/productinfo/:itemid" element={protectedRoute(<ProductInfo />)} />
 
              </Routes>

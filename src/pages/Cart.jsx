@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
+
 //import "./css/Cart.css";
 
 
@@ -21,6 +23,8 @@ function CartPage() {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const form = useRef();
 
 
   useEffect(() => {
@@ -51,7 +55,7 @@ function CartPage() {
       cartItems,
       addressInfo,
       BuyerName: authentication.currentUser.displayName,
-      email: authentication.currentUser.email,
+      BuyerEmail: authentication.currentUser.email,
       userid: authentication.currentUser.uid,
     };
 
@@ -59,13 +63,20 @@ function CartPage() {
       setLoading(true);
       const result = await addDoc(collection(db, "orders"), orderInfo);
 
-      const sendBuyerEmail = await addDoc(collection(db, "mail"), ({
-        to: 'msyed5@stevens.edu',
-        message: {
-          subject: 'You Recieved an Order!',
-          html: '<h1>Hello, {orderInfo.BuyerName} </h1>',
-        },
-      }));
+      // emailjs.sendForm('service_bkpxqmi', 'template_3zk3jlo', form.current, 'HIopd2_vIsbBiB_OM')
+      // .then((result) => {
+      //     console.log(result.text);
+      // }, (error) => {
+      //     console.log(error.text);
+      // });
+
+      // const sendBuyerEmail = await addDoc(collection(db, "mail"), ({
+      //   to: 'msyed5@stevens.edu',
+      //   message: {
+      //     subject: 'You Recieved an Order!',
+      //     html: '<h1>Hello, {orderInfo.BuyerName} </h1>',
+      //   },
+      // }));
 
       // db.collection('mail').add({
       //   to: 'msyed5@stevens.edu',
@@ -74,7 +85,6 @@ function CartPage() {
       //     html: '<h1>Confirm</h1>',
       //   },
       // })
-
 
       setLoading(false);
       toast.success("Order placed successfully");
@@ -133,10 +143,10 @@ function CartPage() {
           <Modal.Title>Order Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {" "}
-          <div className="register-form">
+          <form ref={form} className="register-form">
             <input
               type="text"
+              name="name"
               className="form-control"
               placeholder="Ship to: "
               value={name}
@@ -157,7 +167,6 @@ function CartPage() {
             />
 
             <input
-              type="number"
               className="form-control"
               placeholder="phone number"
               value={phoneNumber}
@@ -165,9 +174,10 @@ function CartPage() {
                 setPhoneNumber(e.target.value);
               }}
             />
+            <p name="email"> {authentication.currentUser.email} </p>
 
             <hr />
-          </div>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Close</button>
