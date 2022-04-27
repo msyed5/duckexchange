@@ -66,7 +66,7 @@ function CreatePost({ signedIn }) {
   }, []);
 
 
-  
+  //image uploads
   const storageRef = ref(storage, 'images');
   uploadBytes(storageRef, ).then((snapshot) => {
     console.log('uploaded a file');
@@ -85,6 +85,9 @@ function CreatePost({ signedIn }) {
       });
     });
   };
+
+  
+
 
   return (
     <div className="createPostPage">
