@@ -47,6 +47,7 @@ function Browse({ signedIn }) {
     dispatch({ type: "ADD_TO_CART", payload: item });
   };
 
+  /*
   //to access image
   const [url, setUrl] = useState();
 
@@ -60,7 +61,7 @@ function Browse({ signedIn }) {
     }
       func();
   })
-
+*/
 
   return (
     <div className="container">
@@ -100,10 +101,8 @@ function Browse({ signedIn }) {
                   <div className="product-content">
                     <h2 className="text-center"> {item.title} </h2>{" "}
                     <div className="text-center">
-                      <image
-                        source={
-                          {uri : url}
-                        }
+                      <img
+                        src = "https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"
                         alt=""
                         className="product-img"
                       />
