@@ -1,7 +1,7 @@
 import { authentication } from '../backend/firebase-config';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import logo from ".pages/logoduck.png";
+import logo from "./logoduck.png";
 
 
 const SignInScreen = ({ setSignedIn }) => {
