@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef} from "react";
 import { Modal } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
 //import "./css/Cart.css";
+
 
 function CartPage() {
   const { cartItems } = useSelector((state) => state.cartReducer);
@@ -18,9 +19,10 @@ function CartPage() {
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
-  const [pincode, setPincode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+
+
   useEffect(() => {
     let temp = 0;
     cartItems.forEach((cartItem) => {
@@ -40,7 +42,6 @@ function CartPage() {
     const addressInfo = {
       name,
       address,
-      pincode,
       phoneNumber,
     };
 
@@ -49,6 +50,7 @@ function CartPage() {
     const orderInfo = {
       cartItems,
       addressInfo,
+      BuyerName: authentication.currentUser.displayName,
       email: authentication.currentUser.email,
       userid: authentication.currentUser.uid,
     };
@@ -56,6 +58,24 @@ function CartPage() {
     try {
       setLoading(true);
       const result = await addDoc(collection(db, "orders"), orderInfo);
+
+      const sendBuyerEmail = await addDoc(collection(db, "mail"), ({
+        to: 'msyed5@stevens.edu',
+        message: {
+          subject: 'You Recieved an Order!',
+          html: '<h1>Hello, {orderInfo.BuyerName} </h1>',
+        },
+      }));
+
+      // db.collection('mail').add({
+      //   to: 'msyed5@stevens.edu',
+      //   message: {
+      //     subject: 'Hello from Firebase!',
+      //     html: '<h1>Confirm</h1>',
+      //   },
+      // })
+
+
       setLoading(false);
       toast.success("Order placed successfully");
       handleClose();
@@ -63,6 +83,8 @@ function CartPage() {
       setLoading(false);
       toast.error("Order failed");
     }
+
+
   };
 
   return (
@@ -70,7 +92,7 @@ function CartPage() {
       <table className="table mt-3">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Name </th>
             <th>Price</th>
           </tr>
         </thead>
@@ -78,17 +100,9 @@ function CartPage() {
           {cartItems.map((item) => {
             return (
               <tr>
-                <h3>
-                  {" "}
-                  <img
-                    src={
-                      "https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"
-                    }
-                    height="100"
-                    width="100"
-                  />
-                  {item.title}
-                </h3>
+
+                <h3> <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} height="100" width="" />
+                    {item.title}</h3>
                 <td>${item.price}</td>
                 <td>
                   <button
