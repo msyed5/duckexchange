@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
-//import "./css/Cart.css";
+import "./css/Cart.css";
 
 function CartPage() {
   const { cartItems } = useSelector((state) => state.cartReducer);
@@ -56,6 +56,24 @@ function CartPage() {
     try {
       setLoading(true);
       const result = await addDoc(collection(db, "orders"), orderInfo);
+
+      const sendBuyerEmail = await addDoc(collection(db, "mail"), ({
+        to: 'msyed5@stevens.edu',
+        message: {
+          subject: 'You Received an Order!',
+          html: '<h1>Hello, {orderInfo.BuyerName} </h1>',
+        },
+      }));
+
+      // db.collection('mail').add({
+      //   to: 'msyed5@stevens.edu',
+      //   message: {
+      //     subject: 'Hello from Firebase!',
+      //     html: '<h1>Confirm</h1>',
+      //   },
+      // })
+
+
       setLoading(false);
       toast.success("Order placed successfully");
       handleClose()
@@ -66,24 +84,21 @@ function CartPage() {
   };
 
   return (
-
-    <div >
-      <table className="table mt-3">
+    <div>
+      <table className="table mt-3" id="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Price</th>
+            <th id="name">Name </th>
+            <th id="price">Price</th>
           </tr>
         </thead>
         <tbody>
           {cartItems.map((item) => {
             return (
               <tr>
-
-
                 <h3> <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} height="100" width="100" />
                   {item.title}</h3>
-                <td>${item.price}</td>
+                <td id="item_price">${item.price}</td>
                 <td>
                   <button className="btn btn-outline-danger" onClick={() => deleteFromCart(item)} > Delete </button>
                 </td>
@@ -96,8 +111,11 @@ function CartPage() {
       <div className="d-flex justify-content-end">
         <h1 className="total-amount">Subtotal:  ${totalAmount}</h1>
       </div>
-      <div className="d-flex justify-content-end mt-3">
-        <button className="btn-lg btn-primary" onClick={handleShow}>Checkout</button>
+      <p />
+      <div className="d-flex " id="checkout">
+        <button className="btn-lg btn-primary" onClick={handleShow}>
+          Checkout
+        </button>
       </div>
 
       <Modal show={show} onHide={handleClose}>

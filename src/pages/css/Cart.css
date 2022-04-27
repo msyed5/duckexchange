@@ -2,3 +2,33 @@
     justify-content: center;
     
 }
+
+#checkout {
+    justify-content: center;
+}
+
+p {
+    white-space: nowrap;
+}
+
+#name {
+    text-align: center;
+    font-size: 32px;
+}
+
+#price {
+    text-align: center;
+    font-size: 32px;
+}
+
+h3 {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 26px;
+    word-spacing: 10px;
+}
+
+#item_price {
+    text-align: center;
+    font-size: 26px;
+}
