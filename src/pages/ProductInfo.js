@@ -39,34 +39,34 @@ function ProductInfo() {
 
 
   return (
-  <div className="container">
-    <div className="justify-content-center">
+    <div className="container">
+      <div className="justify-content-center">
 
         {item && (
-           <div>
-          <div className="row">
-          <h1>{item.title}</h1>
+          <div>
+            <div className="row">
+              <h1>{item.title}</h1>
               <div className="col-md">
-            <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} className="product-info-img" />
-            </div>
-            <div className="col-md">
-            <h3> Description: {item.postText}</h3>
-            <h3> Condition: {item.condition}</h3>
-            <h3> Sold By: {item.author.name}</h3>
-            <h3> Price: ${item.price}</h3>
-            </div>
+                <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} className="product-info-img" />
+              </div>
+              <div className="col-md">
+                <h3> Description: {item.postText}</h3>
+                <h3> Condition: {item.condition}</h3>
+                <h3> Sold By: {item.author.name}</h3>
+                <h3> Price: ${item.price}</h3>
+              </div>
             </div>
             <div className="d-flex justify-content-start my-3">
-            <button className="btn-lg btn-success" onClick={()=>addToCart(item)} > <FaCartPlus /> ADD TO CART</button>
+              <button className="btn-lg btn-success" onClick={() => addToCart(item)} > <FaCartPlus /> ADD TO CART</button>
 
             </div>
 
           </div>
         )}
 
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default ProductInfo;
