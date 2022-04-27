@@ -34,10 +34,10 @@ function CreatePost({ signedIn }) {
 
   const createPost = async () => {
     //error checking empty inputs
-    //if ((title.length || price.length || postText.length || condition.length) == 0){
-    //  alert("empty fields! try again");
-    //}
-    //else {
+    if ((title.length || price.length || postText.length || condition.length) == 0){
+      alert("empty fields! try again");
+    }
+    else {
       await addDoc(postsCollectionRef, {
         title,
         price,
@@ -54,9 +54,9 @@ function CreatePost({ signedIn }) {
         author: { name: authentication.currentUser.displayName, id: authentication.currentUser.uid,
         email: authentication.currentUser.email},
       });
-      //alert("Listing created!");
-    //}
-    navigate("/addlisting");
+      alert("Listing created!");
+    }
+    navigate("/Browse");
   };
 
   useEffect(() => {
@@ -287,9 +287,6 @@ function CreatePost({ signedIn }) {
         </label>
 
         <button className="btn btn-info" onClick = {() => {createPost();uploadFile()}}> Post Listing</button>
-        {imageUrls.map((url) => {
-          return <img src={url} />;
-        })}
       </div>
     </div>
   </div>
