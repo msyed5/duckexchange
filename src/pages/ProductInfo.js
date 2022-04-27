@@ -4,6 +4,7 @@ import { db } from "../backend/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { FaBars, FaCartPlus, FaUser } from "react-icons/fa";
+import './css/ProductInfo.css';
 
 function ProductInfo() {
   const [item, setItem] = useState();
@@ -47,17 +48,17 @@ function ProductInfo() {
           <div className="row">
           <h1>{item.title}</h1>
               <div className="col-md">
-            <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} className="product-info-img" />
+            <img src={"https://i.pinimg.com/originals/f5/43/45/f543457069261f595ed8b896746099fb.jpg"} className="product-info-img"/>
             </div>
-            <div className="col-md">
+            <div id="words">
             <h3> Description: {item.postText}</h3>
             <h3> Condition: {item.condition}</h3>
             <h3> Sold By: {item.author.name}</h3>
             <h3> Price: ${item.price}</h3>
             </div>
             </div>
-            <div className="d-flex justify-content-start my-3">
-            <button className="btn-lg btn-success" onClick={()=>addToCart(item)} > <FaCartPlus /> ADD TO CART</button>
+            <div className="d-flex justify-content-center" id="addToCart">
+            <button className="btn-lg btn-success" id="button" onClick={()=>addToCart(item)} > <FaCartPlus /> ADD TO CART</button>
 
             </div>
 

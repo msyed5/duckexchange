@@ -25,10 +25,18 @@ h3 {
     text-align: center;
     white-space: nowrap;
     font-size: 26px;
-    word-spacing: 10px;
+}
+
+img {
+    margin: 1px 10px;
 }
 
 #item_price {
     text-align: center;
     font-size: 26px;
+    margin: 20px 10px;
+}
+
+#delete {
+    justify-content: right;
 }

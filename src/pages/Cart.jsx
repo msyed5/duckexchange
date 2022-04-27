@@ -106,6 +106,7 @@ function CartPage() {
                 <td>
                   <button
                     className="btn btn-outline-danger"
+                    id="delete"
                     onClick={() => deleteFromCart(item)}
                   >
                     {" "}
