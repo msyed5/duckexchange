@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { authentication, db } from "../backend/firebase-config";
 import { toast } from "react-toastify";
+//import "./css/Cart.css";
 
 function CartPage() {
   const { cartItems } = useSelector((state) => state.cartReducer);
